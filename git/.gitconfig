@@ -1,0 +1,50 @@
+[color]
+  status = always
+  ui = auto
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = cyan
+[user]
+  name = Jon Riddle
+  email = jon@jdrnetworking.com
+[alias]
+  aa = add --all
+  alias = "! git config --get-regexp 'alias.*' | cut -d. -f2- | grep -v ^alias"
+  amend = commit --amend -C HEAD
+  ap = add --patch
+  au = add --update
+  br = branch
+  ca = commit --amend
+  co = checkout
+  cp = cherry-pick
+  cpc = cherry-pick --continue
+  dc = diff --cached
+  di = diff
+  filestat = diff-tree --no-commit-id --name-status -r
+  fixup = commit --fixup
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  la = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  lh = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 20
+  lha = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 20
+  rbi = rebase --interactive
+  rbc = rebase --continue
+  rba = rebase --abort
+  sl = stash list
+  ssu = stash save -u
+  st = status
+[pager]
+  status = true
+[advice]
+  statusHints = false
+[core]
+  whitespace = trailing-space,space-before-tab
+  excludesfile = ~/.gitignore
+[diff]
+  mnemonicprefix = true
+[heroku]
+	account = jdrnetworking
+[rebase]
+	autosquash = true
+[push]
+	default = current
