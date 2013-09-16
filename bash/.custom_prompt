@@ -1,0 +1,36 @@
+fill="--- "
+
+reset_style='\[\033[00m\]'
+#status_style=$reset_style'\[\033[0;90m\]' # gray color; use 0;37m for lighter color
+status_style=$reset_style'\[\033[0;37m\]' # gray color; use 0;37m for lighter color
+prompt_style=$reset_style
+#command_style=$reset_style'\[\033[1;29m\]' # bold black
+command_style=$reset_style'\[\033[1;37m\]' # bold black
+
+PS1="$status_style"'$fill \t\n'"$prompt_style"'${debian_chroot:+($debian_chroot)}\h:\W \u\$'"$command_style "
+
+trap 'echo -ne "\033[00m"' DEBUG
+
+function prompt_command {
+
+let fillsize=${COLUMNS}-9
+fill=""
+while [ "$fillsize" -gt "0" ]
+do
+fill="-${fill}" # fill with underscores to work on
+let fillsize=${fillsize}-1
+done
+
+case "$TERM" in
+xterm*|rxvt*)
+bname=`basename "${PWD/$HOME/~}"`
+#echo -ne "\033]0;${bname}: ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
+echo -ne "\033]0;${HOSTNAME}:${bname} ${USER}$ \007"
+#\h:\W \u\$ 
+;;
+*)
+;;
+esac
+
+}
+PROMPT_COMMAND=prompt_command

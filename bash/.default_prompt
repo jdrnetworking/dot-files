@@ -1,0 +1,2 @@
+PS1='\h:\W \u\$ '
+unset PROMPT_COMMAND
