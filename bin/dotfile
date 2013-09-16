@@ -1,0 +1,67 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  cat <<EOU
+Usage:
+  $(basename $0) new <group>                         # Create a new group, e.g. bash
+  $(basename $0) add <group> <file> [ <file> ...]    # Add file(s) to a group, replacing with link(s)
+  $(basename $0) link <group>                        # Add links for files in group
+EOU
+  exit 1
+fi
+
+BASEDIR="$HOME/.dot-files"
+
+new_group() {
+  path="${BASEDIR}/$1"
+  if [ ! -d "$path" ]; then
+    mkdir "$path"
+  fi
+}
+
+add_files() {
+  group="$1"
+  shift
+  new_group "$group"
+  for fn; do
+    path="${HOME}/${fn}"
+    if [ -e "$path" ] && [ ! -h "$path" ]; then
+      mv "$path" "${BASEDIR}/${group}/"
+      link_file "$group" "$fn"
+    elif [ -e "$path" ]; then
+      echo "Skipping $path (already linked)"
+    else
+      echo "Can't find $path"
+    fi
+  done
+}
+
+link_file() {
+  group="$1"
+  shift
+  ln -s "${BASEDIR}/${group}/$1" "${HOME}/$1"
+}
+
+link_files() {
+  group="$1"
+  shift
+  find "${BASEDIR}/${group}/" -type f | while read fn; do
+    base=`basename "$fn"`
+    link_file "$group" "$base"
+  done
+}
+
+arg=$1
+shift
+case "$arg" in
+  "new")
+    new_group $1
+    ;;
+  "add")
+    group=$1
+    shift
+    add_files $group $*
+    ;;
+  "link")
+    link_files $1
+esac
