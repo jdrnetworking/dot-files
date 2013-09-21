@@ -1,0 +1,36 @@
+[submodule "vim/.vim/bundle/minibufexpl.vim"]
+	path = vim/.vim/bundle/minibufexpl.vim
+	url = git://github.com/fholgado/minibufexpl.vim.git
+[submodule "vim/.vim/bundle/nerdtree"]
+	path = vim/.vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vim/.vim/bundle/vim-abolish"]
+	path = vim/.vim/bundle/vim-abolish
+	url = git://github.com/tpope/vim-abolish.git
+[submodule "vim/.vim/bundle/vim-bundler"]
+	path = vim/.vim/bundle/vim-bundler
+	url = git://github.com/tpope/vim-bundler.git
+[submodule "vim/.vim/bundle/vim-coffee-script"]
+	path = vim/.vim/bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "vim/.vim/bundle/vim-elixir"]
+	path = vim/.vim/bundle/vim-elixir
+	url = git@github.com:elixir-lang/vim-elixir.git
+[submodule "vim/.vim/bundle/vim-fugitive"]
+	path = vim/.vim/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/.vim/bundle/vim-handlebars"]
+	path = vim/.vim/bundle/vim-handlebars
+	url = git://github.com/nono/vim-handlebars.git
+[submodule "vim/.vim/bundle/vim-indent-object"]
+	path = vim/.vim/bundle/vim-indent-object
+	url = https://github.com/michaeljsmith/vim-indent-object.git
+[submodule "vim/.vim/bundle/vim-rails"]
+	path = vim/.vim/bundle/vim-rails
+	url = git://github.com/tpope/vim-rails.git
+[submodule "vim/.vim/bundle/vim-ruby-xmpfilter"]
+	path = vim/.vim/bundle/vim-ruby-xmpfilter
+	url = git@github.com:t9md/vim-ruby-xmpfilter.git
+[submodule "vim/.vim/bundle/vim-surround"]
+	path = vim/.vim/bundle/vim-surround
+	url = git://github.com/tpope/vim-surround.git
