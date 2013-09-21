@@ -1,6 +1,6 @@
-export VISUAL='vim'
-export CLICOLOR=true
-export MANPATH=$MANPATH:/opt/local/share/man
-export HISTCONTROL=ignoreboth
-export CC="gcc-apple-4.2"
+export PATH=$HOME/bin:$PATH
+export RBENV_ROOT=/usr/local/var/rbenv
+
 [ -f "$HOME/bin/find_ssh_agent" ] && source "$HOME/bin/find_ssh_agent"
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
