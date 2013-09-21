@@ -45,7 +45,7 @@ link_file() {
 link_files() {
   group="$1"
   shift
-  find "${BASEDIR}/${group}/" -type f | while read fn; do
+  find "${BASEDIR}/${group}" -maxdepth 1 | tail +2 | while read fn; do
     base=`basename "$fn"`
     link_file "$group" "$base"
   done
