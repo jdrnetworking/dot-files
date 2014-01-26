@@ -116,6 +116,14 @@ if has("autocmd")
     autocmd WinEnter * set cursorline
     autocmd WinLeave * set nocursorline
   augroup END
+
+  augroup no_simultaneous_edits
+    au!
+    au SwapExists * let v:swapchoice = 'o'
+    "au SwapExists * echomsg ErrorMsg
+    au SwapExists * echo 'Duplicate edit session (readonly)'
+    au SwapExists * echohl None
+  augroup END
 endif " has ("autocmd")
 
 function! ExtractVariable()
@@ -231,3 +239,24 @@ function! InsertTabWrapper()
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-p>
+
+" Highlight 80 column soft limit
+highlight ColorColumn ctermbg=magenta ctermfg=white
+call matchadd('ColorColumn', '\%81v', 100)
+
+" Remap ; to :
+nnoremap ; :
+
+" DragVisual mappings
+vmap  <expr>  <LEFT>   DVB_Drag('left')
+vmap  <expr>  <RIGHT>  DVB_Drag('right')
+vmap  <expr>  <DOWN>   DVB_Drag('down')
+vmap  <expr>  <UP>     DVB_Drag('up')
+vmap  <expr>  D        DVB_Duplicate()
+
+" Remove any introduced trailing whitespace after moving...
+let g:DVB_TrimWS = 1
+
+vmap <expr>  ++  VMATH_YankAndAnalyse()
+nmap         ++  vip++
+
