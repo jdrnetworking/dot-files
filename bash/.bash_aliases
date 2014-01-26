@@ -9,4 +9,5 @@ alias beep='tput bel'
 alias cdocs='/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt -t --mount /Users/jon/Dropbox/cdocs /Volumes/CDOCS'
 alias rscp='rsync -avzP -e ssh'
 alias ras="authbind rails s -p 80"
-
+alias be="bundle exec"
+alias reload_dns="sudo killall -HUP mDNSResponder"
