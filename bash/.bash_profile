@@ -5,6 +5,7 @@ export VISUAL='vim'
 export EDITOR='vim'
 export CLICOLOR=true
 export HISTCONTROL=ignoreboth
+export PATH=$HOME/bin:/usr/local/heroku/bin:$PATH
 export SCREENDIR="/tmp/.screen-${USER}"
 
 if [ -n "$SCREENPWD" ]; then cd $SCREENPWD; fi
