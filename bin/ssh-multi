@@ -1,0 +1,101 @@
+#!/bin/bash
+# ssh-multi
+# D.Kovalov
+# Based on http://linuxpixies.blogspot.jp/2011/06/tmux-copy-mode-and-how-to-control.html
+
+# a script to ssh multiple servers over multiple tmux panes
+
+
+starttmux() {
+    if [ -z "$HOSTS" ]; then
+       echo -n "Please provide of list of hosts separated by spaces [ENTER]: "
+       read HOSTS
+    fi
+
+    local hosts=( $HOSTS )
+
+    tmux new-session -d "ssh ${hosts[0]} || cat"
+    unset hosts[0];
+    for i in "${hosts[@]}"; do
+        tmux split-window -h  "ssh $i || cat"
+        tmux select-layout tiled > /dev/null
+    done
+    tmux select-pane -t 0
+    tmux set-window-option synchronize-panes on > /dev/null
+    tmux attach-session
+
+#    tmux new-window "ssh ${hosts[0]} || cat"
+#    unset hosts[0];
+#    for i in "${hosts[@]}"; do
+#        tmux split-window -h  "ssh $i || cat"
+#        tmux select-layout tiled > /dev/null
+#    done
+#    tmux select-pane -t 0
+#    tmux set-window-option synchronize-panes on > /dev/null
+}
+
+OHD_STAGING=(ohd-staging-app-1 ohd-staging-web-1 ohd-staging-forms-1)
+OHD_PROD=(ohd-prod-web-1 ohd-prod-app-1 ohd-prod-forms-1)
+OHD_DEMO=(ohd-demo-web-1 ohd-demo-app-1)
+OHD_DB=(ohd-db-1 ohd-db-2 ohd-redis-1)
+OHD_MISC=(ohd-sftp ohd-log-1)
+INTERNAL=(ohd-bugzilla ohd-ci ohd-efax-01 ohd-ids-01 ohd-phab ohd-unifi ohd-vpn-01 ohd-sec-01) # ohd-dev-app-1
+KP_STAGING=(kp-staging-web-1 kp-staging-app-1)
+KP_PROD=(kp-prod-app-1 kp-prod-web-1)
+KP_DB=(kp-db-1 kp-db-2 kp-redis-1)
+OHD=("${OHD_STAGING[@]}" "${OHD_PROD[@]}" "${OHD_DEMO[@]}" "${OHD_DB[@]}" "${OHD_MISC[@]}")
+KP=("${KP_STAGING[@]}" "${KP_PROD[@]}" "${KP_DB[@]}")
+AWS=("${OHD[@]}" "${KP[@]}")
+ALL=("${OHD[@]}" "${KP[@]}" "${INTERNAL[@]}")
+
+if [ $# -eq  0 ]; then
+  >&2 echo "Usage: $(basename $0) host [host [host ..]]"
+  >&2 echo
+  >&2 echo "Predefined host groups:"
+  >&2 echo "  @all (@ohd @kp @internal)"
+  >&2 echo "  @aws (@ohd @kp)"
+  >&2 echo "  @ohd (@ohd-staging @ohd-prod @ohd-demo @ohd-db @ohd-misc)"
+  >&2 echo "  @kp (@kp-staging @kp-prod @kp-db)"
+  >&2 echo "  @ohd-staging (${OHD_STAGING[*]})"
+  >&2 echo "  @ohd-prod (${OHD_PROD[*]})"
+  >&2 echo "  @ohd-demo (${OHD_DEMO[*]})"
+  >&2 echo "  @ohd-db (${OHD_DB[*]})"
+  >&2 echo "  @ohd-misc (${OHD_MISC[*]})"
+  >&2 echo "  @internal (${INTERNAL[*]})"
+  >&2 echo "  @kp-staging (${KP_STAGING[*]})"
+  >&2 echo "  @kp-prod (${KP_PROD[*]})"
+  >&2 echo "  @kp-db (${KP_DB[*]})"
+  exit 1
+elif [ "$1" = "@all" ]; then
+  HOSTS=${ALL[*]}
+elif [ "$1" = "@aws" ]; then
+  HOSTS=${AWS[*]}
+elif [ "$1" = "@ohd" ]; then
+  HOSTS=${OHD[*]}
+elif [ "$1" = "@internal" ]; then
+  HOSTS=${INTERNAL[*]}
+elif [ "$1" = "@kp" ]; then
+  HOSTS=${KP[*]}
+elif [ "$1" = "@ohd-staging" ]; then
+  HOSTS=${OHD_STAGING[*]}
+elif [ "$1" = "@ohd-prod" ]; then
+  HOSTS=${OHD_PROD[*]}
+elif [ "$1" = "@ohd-demo" ]; then
+  HOSTS=${OHD_DEMO[*]}
+elif [ "$1" = "@ohd-db" ]; then
+  HOSTS=${OHD_DB[*]}
+elif [ "$1" = "@ohd-misc" ]; then
+  HOSTS=${OHD_MISC[*]}
+elif [ "$1" = "@kp-staging" ]; then
+  HOSTS=${KP_STAGING[*]}
+elif [ "$1" = "@kp-prod" ]; then
+  HOSTS=${KP_PROD[*]}
+elif [ "$1" = "@kp-db" ]; then
+  HOSTS=${KP_DB[*]}
+else
+  HOSTS=${HOSTS:=$*}
+fi
+
+#echo ${HOSTS[*]}
+
+starttmux

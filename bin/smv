@@ -1,0 +1,55 @@
+#!/bin/sh
+
+VERIFY=true
+
+if [ -n "$1" ] && [ "$1" == "-n" ]; then
+  VERIFY=false
+  shift
+fi
+
+for last; do true; done
+
+if [ "${last/:/}" == "$last" ]; then
+  /bin/echo "Last parameter must be a remote path"
+  exit
+fi
+
+if [ $VERIFY == "true" ]; then
+  host=${last%:*}
+  path=${last#*:}
+fi
+
+while [ -n "$1" ]; do
+  if [ "$last" == "$1" ]; then
+    break
+  fi
+
+  /bin/echo -n "${1}..."
+
+  # move file
+  scp -q "$1" "$last"
+
+  if [ $VERIFY == "true" ]; then
+    fn=`basename "$1"`
+    local=$(md5 -q "$1")
+    remote=$(ssh "$host" "md5sum \"${path}${fn}\" | awk '{print \$1}'")
+    if [ -z "${local}" ]; then
+      /bin/echo "could not get md5sum of $1...skipping"
+      shift
+      continue
+    fi
+    if [ "${local}" == "${remote}" ]; then
+      /bin/echo -n "verified..."
+    else
+      /bin/echo "verification failed...(${local} <> ${remote})"
+      shift
+      continue
+    fi
+  fi
+
+  # remove file
+  rm "$1"
+  /bin/echo "done"
+
+  shift
+done

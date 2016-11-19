@@ -1,0 +1,30 @@
+#!/bin/bash
+
+PROJECT="${1:-onsitehd.com}"
+WORKING_DIR="/Users/jon/Sites/${PROJECT}"
+session_name=${PROJECT//./_}
+
+mysql.server status >/dev/null || mysql.server start || { echo "Cannot start mysql. Exiting"; exit 1; }
+
+if tmux has -t $session_name 2>/dev/null; then
+  exec tmux attach-session -t $session_name
+fi
+
+tmux new-session -d -c "$WORKING_DIR" -s $session_name
+tmux rename-window server
+tmux new-window -n vim -c "$WORKING_DIR"
+tmux new-window -n test -c "$WORKING_DIR"
+tmux new-window -n console -c "$WORKING_DIR"
+tmux new-window -n gitsh -c "$WORKING_DIR" gitsh
+tmux new-window -n remote -c "$WORKING_DIR"
+
+sleep 1
+
+tmux select-window -t server
+tmux send-keys 'ras'
+tmux select-window -t console
+tmux send-keys 'rails c'
+tmux select-window -t gitsh
+tmux send-keys 'lh' C-m C-m
+
+tmux attach-session -t $session_name
