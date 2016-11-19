@@ -179,9 +179,6 @@ function! RenameFile()
 endfunction
 map <leader>rf :call RenameFile()<cr>
 
-" NerdTree
-map <leader>n :NERDTreeToggle<cr>
-
 " map q work again with minibufexplorer
 "cnoreabbrev <expr> q ((getcmdtype() is# ':' && getcmdline() is# 'q')?('qa'):('q'))
 
