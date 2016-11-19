@@ -256,4 +256,6 @@ let g:DVB_TrimWS = 1
 
 vmap <expr>  ++  VMATH_YankAndAnalyse()
 nmap         ++  vip++
+set runtimepath^=~/.vim/bundle/ag
 
+nmap <leader>/ :Ack<space>

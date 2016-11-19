@@ -37,3 +37,6 @@
 [submodule "vim/.vim/bundle/vim-json"]
 	path = vim/.vim/bundle/vim-json
 	url = https://github.com/elzr/vim-json.git
+[submodule "vim/.vim/bundle/ack.vim"]
+	path = vim/.vim/bundle/ack.vim
+	url = git@github.com:mileszs/ack.vim.git
