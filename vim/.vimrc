@@ -15,7 +15,7 @@ set hidden
 set ignorecase
 set incsearch
 set joinspaces
-set laststatus=2 
+set laststatus=2
 set magic
 set modeline
 set modelines=3
@@ -42,10 +42,11 @@ set splitbelow
 set splitright
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set switchbuf=useopen
+set synmaxcol=2048
 set t_ti= t_te=
 set tabstop=2
 set textwidth=0
-set ttyfast 
+set ttyfast
 set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
@@ -64,6 +65,7 @@ call pathogen#helptags()
 if has("autocmd")
   autocmd BufEnter * :syntax sync fromstart
   autocmd BufEnter * set relativenumber
+  autocmd BufEnter * set number
 
   augroup cprog
     au!
@@ -124,6 +126,9 @@ if has("autocmd")
     au SwapExists * echo 'Duplicate edit session (readonly)'
     au SwapExists * echohl None
   augroup END
+
+  " Remove trailing whitespace
+  autocmd BufWritePre * :%s/\s\+$//e
 endif " has ("autocmd")
 
 function! ExtractVariable()
@@ -188,7 +193,7 @@ let g:miniBufExplBRSplit = 0
 " when I type :W, I mean :w
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 
-" paste/nopaste
+" toggle paste
 nnoremap <silent> <leader>p :call TogglePaste()<cr>
 function! TogglePaste()
   if &paste == 0
@@ -199,6 +204,9 @@ function! TogglePaste()
     echo "Paste Off"
   endif
 endfunction
+
+" toggle hlsearch
+nnoremap <silent> <leader>h :set hlsearch!<cr>
 
 " Window navigation shortcuts
 nnoremap <leader>w <c-w>
@@ -220,6 +228,9 @@ imap <buffer> <leader>xr <Plug>(xmpfilter-run)
 
 " yank to end of line
 nmap Y y$
+
+" Prettify XML
+nmap <leader>x :%s/></>\r</g<cr>:0<cr>=:$<cr>
 
 " Tab autocomplete unless at beginning of line
 function! InsertTabWrapper()
