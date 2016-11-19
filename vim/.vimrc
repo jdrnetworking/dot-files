@@ -258,4 +258,9 @@ vmap <expr>  ++  VMATH_YankAndAnalyse()
 nmap         ++  vip++
 set runtimepath^=~/.vim/bundle/ag
 
+nmap <silent> <leader>t :TestNearest<cr>
+nmap <silent> <leader>T :TestFile<cr>
+nmap <silent> <leader>ta :TestSuite<cr>
+nmap <silent> <leader>tl :TestLast<cr>
+
 nmap <leader>/ :Ack<space>

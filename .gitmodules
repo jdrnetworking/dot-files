@@ -40,3 +40,6 @@
 [submodule "vim/.vim/bundle/ack.vim"]
 	path = vim/.vim/bundle/ack.vim
 	url = git@github.com:mileszs/ack.vim.git
+[submodule "vim/.vim/bundle/vim-test"]
+	path = vim/.vim/bundle/vim-test
+	url = https://github.com/janko-m/vim-test.git
