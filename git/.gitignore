@@ -3,6 +3,7 @@
 .ruby-gemset
 .ruby-version
 .rbenv-vars
+.rbenv-gemsets
 .DS_Store*
 .autotest
 .tconsole
@@ -22,5 +23,6 @@ Thumbs.db
 *.tar
 *.zip
 *.tgz
+*.swo
 .arcconfig
 Gemfile.local
