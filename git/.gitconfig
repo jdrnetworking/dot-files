@@ -10,7 +10,7 @@
   email = jon@jdrnetworking.com
 [alias]
   aa = add --all
-  alias = "! git config --get-regexp 'alias.*' | cut -d. -f2- | grep -v ^alias"
+  alias = "! git config --get-regexp 'alias.*' | cut -d. -f2-"
   amend = commit --amend -C HEAD
   ap = add --patch
   au = add --update
@@ -27,6 +27,9 @@
   la = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)<%an>%Creset' --abbrev-commit --date=relative
   lh = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)<%an>%Creset' --abbrev-commit --date=relative -n 20
   lha = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)<%an>%Creset' --abbrev-commit --date=relative -n 20
+  l1 = log -n1
+  mfo = merge --ff-only
+  mfn = merge --no-ff
   rbi = rebase --interactive
   rbc = rebase --continue
   rba = rebase --abort
