@@ -43,3 +43,6 @@
 [submodule "vim/.vim/bundle/vim-test"]
 	path = vim/.vim/bundle/vim-test
 	url = https://github.com/janko-m/vim-test.git
+[submodule "vim/.vim/bundle/vim-dispatch"]
+	path = vim/.vim/bundle/vim-dispatch
+	url = git://github.com/tpope/vim-dispatch.git

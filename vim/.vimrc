@@ -263,4 +263,9 @@ nmap <silent> <leader>T :TestFile<cr>
 nmap <silent> <leader>ta :TestSuite<cr>
 nmap <silent> <leader>tl :TestLast<cr>
 
+let test#strategy = "dispatch"
+"let dispatch#split_dir = "h"
+let g:ack_use_dispatch = 1
+let g:ack_default_options = " -s -H --nocolor --nogroup --column --ignore-dir=.git --ignore-dir=log --ignore-dir=tmp"
+
 nmap <leader>/ :Ack<space>
