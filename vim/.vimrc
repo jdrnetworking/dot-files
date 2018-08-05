@@ -10,6 +10,7 @@ set background=dark
 set backspace=2
 set cinoptions=>2
 set cmdheight=2
+set encoding=utf-8
 set expandtab
 set hidden
 set ignorecase
@@ -218,6 +219,17 @@ nnoremap <c-l> <c-w>l
 nnoremap <Esc>[5D :bp<cr>
 nnoremap <Esc>[5C :bn<cr>
 
+nnoremap <leader>1 :b1<cr>
+nnoremap <leader>2 :b2<cr>
+nnoremap <leader>3 :b3<cr>
+nnoremap <leader>4 :b4<cr>
+nnoremap <leader>5 :b5<cr>
+nnoremap <leader>6 :b6<cr>
+nnoremap <leader>7 :b7<cr>
+nnoremap <leader>8 :b8<cr>
+nnoremap <leader>9 :b9<cr>
+nnoremap <leader>0 :b10<cr>
+
 " xmpfilter shortcuts
 nmap <buffer> <leader>xm <Plug>(xmpfilter-mark)
 xmap <buffer> <leader>xm <Plug>(xmpfilter-mark)
@@ -251,6 +263,10 @@ inoremap <s-tab> <c-p>
 " Highlight 80 column soft limit
 highlight ColorColumn ctermbg=magenta ctermfg=white
 call matchadd('ColorColumn', '\%81v', 100)
+
+" Highlight 160 column soft limit
+highlight ColorColumn ctermbg=magenta ctermfg=white
+call matchadd('ColorColumn', '\%161v', 100)
 
 " Remap ; to :
 nnoremap ; :
