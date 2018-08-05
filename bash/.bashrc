@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export RBENV_ROOT=/usr/local/var/rbenv
 
 [ -f "$HOME/bin/find_ssh_agent" ] && source "$HOME/bin/find_ssh_agent"
