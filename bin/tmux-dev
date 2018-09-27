@@ -10,7 +10,8 @@ if tmux has -t $session_name 2>/dev/null; then
   exec tmux attach-session -t $session_name
 fi
 
-tmux new-session -d -c "$WORKING_DIR" -s $session_name
+tmux new-session -d -c "$WORKING_DIR" -s $session_name -x $(tput cols) -y $(tput lines)
+
 tmux rename-window server
 tmux new-window -n vim -c "$WORKING_DIR"
 tmux new-window -n test -c "$WORKING_DIR"
