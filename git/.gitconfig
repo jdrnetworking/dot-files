@@ -30,6 +30,7 @@
   l1 = log -n1
   mfo = merge --ff-only
   mfn = merge --no-ff
+  pup = !git pull upstream && git push && :
   rbi = rebase --interactive
   rbc = rebase --continue
   rba = rebase --abort
