@@ -230,14 +230,6 @@ nnoremap <leader>8 :b8<cr>
 nnoremap <leader>9 :b9<cr>
 nnoremap <leader>0 :b10<cr>
 
-" xmpfilter shortcuts
-nmap <buffer> <leader>xm <Plug>(xmpfilter-mark)
-xmap <buffer> <leader>xm <Plug>(xmpfilter-mark)
-imap <buffer> <leader>xm <Plug>(xmpfilter-mark)
-nmap <buffer> <leader>xr <Plug>(xmpfilter-run)
-xmap <buffer> <leader>xr <Plug>(xmpfilter-run)
-imap <buffer> <leader>xr <Plug>(xmpfilter-run)
-
 " yank to end of line
 nmap Y y$
 

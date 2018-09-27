@@ -28,9 +28,6 @@
 [submodule "vim/.vim/bundle/vim-rails"]
 	path = vim/.vim/bundle/vim-rails
 	url = git://github.com/tpope/vim-rails.git
-[submodule "vim/.vim/bundle/vim-ruby-xmpfilter"]
-	path = vim/.vim/bundle/vim-ruby-xmpfilter
-	url = git@github.com:t9md/vim-ruby-xmpfilter.git
 [submodule "vim/.vim/bundle/vim-surround"]
 	path = vim/.vim/bundle/vim-surround
 	url = git://github.com/tpope/vim-surround.git
