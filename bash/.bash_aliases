@@ -16,3 +16,4 @@ alias recover_x11='wmctrl -e 0,120,90,1680,900 -r'
 alias sum_lines="awk '{s+=\$1} END {print s}'"
 alias edit_merge_conflicts='vi $(git st --porcelain | ack "^U" | field -1)'
 alias bqr='brakeman -q --no-pager; rubocop'
+alias vi=vim
