@@ -288,3 +288,6 @@ let g:ack_use_dispatch = 1
 let g:ack_default_options = " -s -H --nocolor --nogroup --column --ignore-dir=.git --ignore-dir=log --ignore-dir=tmp"
 
 nmap <leader>/ :Ack<space>
+
+" // to search for next occurance of selected text
+vnoremap // y/<C-R>"<CR>
