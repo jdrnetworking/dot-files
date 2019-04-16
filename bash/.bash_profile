@@ -6,7 +6,7 @@ export EDITOR='vim'
 export CLICOLOR=true
 export HISTCONTROL=ignoreboth
 export SCREENDIR="/tmp/.screen-${USER}"
-export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-12.jdk/Contents/Home"
 
 if [ -n "$SCREENPWD" ]; then cd $SCREENPWD; fi
 if [ -f ~/bin/ssh_completion ]; then . ~/bin/ssh_completion; fi
