@@ -291,3 +291,8 @@ nmap <leader>/ :Ack<space>
 
 " // to search for next occurance of selected text
 vnoremap // y/<C-R>"<CR>
+
+" Set ruby_default_path to keep ftplugins/ruby.vim from searching on startup (slow)
+if executable('rbenv')
+  let g:ruby_default_path = ["/usr/local/var/rbenv/shims/ruby"]
+endif
