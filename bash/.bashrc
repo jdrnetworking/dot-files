@@ -1,9 +1,10 @@
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
-export RBENV_ROOT=/usr/local/var/rbenv
+if type -t rbenv >/dev/null; then
+  if [ -d /usr/local/var/rbenv ]; then
+    export RBENV_ROOT=/usr/local/var/rbenv
+  fi
+  eval "$(rbenv init - --no-rehash)"
+fi
 
 [ -f "$HOME/bin/find_ssh_agent" ] && source "$HOME/bin/find_ssh_agent"
 
-if which rbenv > /dev/null; then eval "$(rbenv init - --no-rehash)"; fi
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"

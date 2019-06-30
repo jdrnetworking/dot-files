@@ -1,19 +1,44 @@
-# Client-specific aliases
-alias mysql_ohd='mysql --login-path=onsitehd gibson_dev'
-
 export VISUAL='vim'
 export EDITOR='vim'
 export CLICOLOR=true
-export HISTCONTROL=ignoreboth
 export SCREENDIR="/tmp/.screen-${USER}"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-12.jdk/Contents/Home"
 
+export HISTCONTROL=ignoreboth
+shopt -s histappend # append to the history file, don't overwrite it
+shopt -s checkwinsize
+
 if [ -n "$SCREENPWD" ]; then cd $SCREENPWD; fi
 if [ -f ~/bin/ssh_completion ]; then . ~/bin/ssh_completion; fi
-if [ -f $(brew --prefix)/etc/bash_completion ]; then . $(brew --prefix)/etc/bash_completion; fi
+if ! shopt -oq posix; then
+  if type -t brew >/dev/null && [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  elif [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
 if [ -f ~/bin/git-completion.bash ]; then . ~/bin/git-completion.bash; fi
 
-[ -f "$HOME/.custom_prompt" ] && source "$HOME/.custom_prompt"
+if [ "$(uname -s)" = "Darwin" ]; then
+  [ -f "$HOME/.custom_prompt" ] && source "$HOME/.custom_prompt"
+elif [ "$(uname -s)" = "Linux" ]; then
+  if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+  fi
+  if [ "$CLICOLOR" = "true" ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  fi
+fi
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+fi
 
 nowstamp() {
   date +'%Y%m%d%H%M%S'
