@@ -21,3 +21,8 @@ if [ "$(uname -s)" = "Darwin" ]; then
   alias mute="/usr/bin/osascript -e 'set volume output muted 1'"
   alias unmute="/usr/bin/osascript -e 'set volume output muted 0'"
 fi
+
+if type -t xclip >/dev/null; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
