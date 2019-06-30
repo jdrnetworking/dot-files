@@ -1,0 +1,6 @@
+To Backup:
+dconf dump /org/gnome/terminal/ > ~/.dot-files/linux/gnome_terminal_settings
+
+To Restore:
+dconf reset -f /org/gnome/terminal/
+dconf load /org/gnome/terminal/ < ~/.dot-files/linux/gnome_terminal_settings

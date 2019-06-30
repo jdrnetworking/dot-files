@@ -1,0 +1,33 @@
+[legacy/keybindings]
+new-tab='<Super>t'
+switch-to-tab-1='<Super>1'
+switch-to-tab-2='<Super>2'
+switch-to-tab-3='<Super>3'
+copy='<Primary>c'
+switch-to-tab-5='<Super>5'
+preferences='<Primary>comma'
+prev-tab='<Super>braceleft'
+new-window='<Primary>n'
+close-tab='<Super>w'
+switch-to-tab-10='disabled'
+switch-to-tab-6='<Super>6'
+switch-to-tab-7='<Super>7'
+switch-to-tab-4='<Super>4'
+switch-to-tab-9='disabled'
+switch-to-tab-8='<Super>8'
+paste='<Primary>v'
+next-tab='<Super>braceright'
+switch-to-tab-last='<Super>9'
+
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+foreground-color='rgb(211,215,207)'
+palette=['rgb(46,52,54)', 'rgb(204,0,0)', 'rgb(78,154,6)', 'rgb(196,160,0)', 'rgb(52,101,164)', 'rgb(117,80,123)', 'rgb(6,152,154)', 'rgb(211,215,207)', 'rgb(85,87,83)', 'rgb(239,41,41)', 'rgb(138,226,52)', 'rgb(252,233,79)', 'rgb(114,159,207)', 'rgb(173,127,168)', 'rgb(52,226,226)', 'rgb(238,238,236)']
+login-shell=true
+default-size-columns=160
+default-size-rows=50
+use-theme-colors=false
+background-color='rgb(46,52,54)'
+scrollback-lines=50000
+
+[legacy]
+schema-version=uint32 3
