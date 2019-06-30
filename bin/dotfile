@@ -14,7 +14,7 @@ EOU
 }
 
 new_group() {
-  if [ $# -lt 2 ]; then
+  if [ $# -lt 1 ]; then
     print_usage
   fi
 
@@ -25,7 +25,7 @@ new_group() {
 }
 
 add_files() {
-  if [ $# -lt 3 ]; then
+  if [ $# -lt 2 ]; then
     print_usage
   fi
 
@@ -52,7 +52,7 @@ link_file() {
 }
 
 link_files() {
-  if [ $# -lt 2 ]; then
+  if [ $# -lt 1 ]; then
     print_usage
   fi
 
