@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$(uname -s)" = "Darwin" ]; then
+  /usr/bin/open "$@"
+elif [ "$(uname -s)" = "Linux" ]; then
+  xdg-open "$@"
+fi
