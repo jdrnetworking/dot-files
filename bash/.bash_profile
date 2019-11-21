@@ -20,6 +20,9 @@ if ! shopt -oq posix; then
   fi
 fi
 if [ -f ~/bin/git-completion.bash ]; then . ~/bin/git-completion.bash; fi
+if type heroku >/dev/null 2>&1; then
+  HEROKU_AC_BASH_SETUP_PATH=/Users/jriddle/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH
+fi
 
 if [ "$(uname -s)" = "Darwin" ]; then
   [ -f "$HOME/.custom_prompt" ] && source "$HOME/.custom_prompt"
