@@ -129,7 +129,8 @@ if has("autocmd")
   augroup END
 
   " Remove trailing whitespace
-  autocmd BufWritePre * :%s/\s\+$//e
+  let noStripTrailingWhitespaceFiletypes = ['diff']
+  autocmd BufWritePre * if index(noStripTrailingWhitespaceFiletypes, &ft) < 0 | :%s/\s\+$//e
 endif " has ("autocmd")
 
 function! ExtractVariable()
