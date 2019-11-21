@@ -25,17 +25,15 @@ starttmux() {
   tmux attach-session
 }
 
-OHD_STAGING=(ohd-staging-app-1 ohd-staging-web-1 ohd-staging-forms-1)
-OHD_PROD=(ohd-prod-web-2 ohd-prod-app-1 ohd-prod-app-2 ohd-prod-forms-1)
+OHD_STAGING=(ohd-staging-app-1 ohd-staging-web-1 ohd-staging-forms-2)
+OHD_PROD=(ohd-prod-web-2 ohd-prod-app-2 ohd-prod-app-3 ohd-prod-forms-1 ohd-prod-worker-1)
 OHD_DEMO=(ohd-demo-web-2 ohd-demo-app-1)
-OHD_DB=(ohd-db-1 ohd-db-2 ohd-redis-1)
-OHD_MISC=(ohd-bugzilla ohd-sftp ohd-log-1 ohd-sec-03)
-INTERNAL=(ohd-ci ohd-efax-01 ohd-ids-01 ohd-phab ohd-unifi ohd-vpn-01 ohd-sec-02 ohd-db-06) # ohd-dev-app-1 ohd-sec-01
-KP_STAGING=(kp-staging-web-1 kp-staging-app-1)
-KP_PROD=(kp-prod-app-1 kp-prod-web-1)
-KP_DB=(kp-db-1 kp-db-2 kp-redis-1)
-OHD=("${OHD_STAGING[@]}" "${OHD_PROD[@]}" "${OHD_DEMO[@]}" "${OHD_DB[@]}" "${OHD_MISC[@]}")
-KP=("${KP_STAGING[@]}" "${KP_PROD[@]}" "${KP_DB[@]}")
+OHD_MISC=(ohd-sftp ohd-log-1 ohd-sec-03)
+INTERNAL=(ohd-ci ohd-ids-01 ohd-phab ohd-unifi ohd-vpn-03 ohd-sec-02 ohd-db-06) # ohd-dev-app-1 ohd-sec-01
+KP_STAGING=(kp-staging-app-2)
+KP_PROD=(kp-prod-app-2)
+OHD=("${OHD_STAGING[@]}" "${OHD_PROD[@]}" "${OHD_DEMO[@]}" "${OHD_MISC[@]}")
+KP=("${KP_STAGING[@]}" "${KP_PROD[@]}")
 AWS=("${OHD[@]}" "${KP[@]}")
 ALL=("${OHD[@]}" "${KP[@]}" "${INTERNAL[@]}")
 
@@ -45,17 +43,15 @@ if [ $# -eq  0 ]; then
   >&2 echo "Predefined host groups:"
   >&2 echo "  @all (@ohd @kp @internal)"
   >&2 echo "  @aws (@ohd @kp)"
-  >&2 echo "  @ohd (@ohd-staging @ohd-prod @ohd-demo @ohd-db @ohd-misc)"
-  >&2 echo "  @kp (@kp-staging @kp-prod @kp-db)"
+  >&2 echo "  @ohd (@ohd-staging @ohd-prod @ohd-demo @ohd-misc)"
+  >&2 echo "  @kp (@kp-staging @kp-prod)"
   >&2 echo "  @ohd-staging (${OHD_STAGING[*]})"
   >&2 echo "  @ohd-prod (${OHD_PROD[*]})"
   >&2 echo "  @ohd-demo (${OHD_DEMO[*]})"
-  >&2 echo "  @ohd-db (${OHD_DB[*]})"
   >&2 echo "  @ohd-misc (${OHD_MISC[*]})"
   >&2 echo "  @internal (${INTERNAL[*]})"
   >&2 echo "  @kp-staging (${KP_STAGING[*]})"
   >&2 echo "  @kp-prod (${KP_PROD[*]})"
-  >&2 echo "  @kp-db (${KP_DB[*]})"
   exit 1
 elif [ "$1" = "@all" ]; then
   HOSTS=${ALL[*]}
@@ -73,16 +69,12 @@ elif [ "$1" = "@ohd-prod" ]; then
   HOSTS=${OHD_PROD[*]}
 elif [ "$1" = "@ohd-demo" ]; then
   HOSTS=${OHD_DEMO[*]}
-elif [ "$1" = "@ohd-db" ]; then
-  HOSTS=${OHD_DB[*]}
 elif [ "$1" = "@ohd-misc" ]; then
   HOSTS=${OHD_MISC[*]}
 elif [ "$1" = "@kp-staging" ]; then
   HOSTS=${KP_STAGING[*]}
 elif [ "$1" = "@kp-prod" ]; then
   HOSTS=${KP_PROD[*]}
-elif [ "$1" = "@kp-db" ]; then
-  HOSTS=${KP_DB[*]}
 else
   HOSTS=${HOSTS:=$*}
 fi
