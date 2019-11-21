@@ -26,6 +26,7 @@ fi
 
 if [ "$(uname -s)" = "Darwin" ]; then
   [ -f "$HOME/.custom_prompt" ] && source "$HOME/.custom_prompt"
+  export BASH_SILENCE_DEPRECATION_WARNING=1
 elif [ "$(uname -s)" = "Linux" ]; then
   if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
