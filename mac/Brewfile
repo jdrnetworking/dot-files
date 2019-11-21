@@ -27,6 +27,7 @@ brew "imagemagick"
 brew "imagemagick@6"
 brew "john-jumbo"
 brew "mailhog"
+brew "mas"
 brew "mtr"
 brew "mysql"
 brew "nasm"
@@ -79,3 +80,8 @@ cask "spotify"
 cask "viscosity"
 cask "vlc"
 cask "wireshark"
+
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Ninox Database", id: 901110441
+mas "MuteMyMic", id: 456362093
+mas "Harvest", id: 506189836
