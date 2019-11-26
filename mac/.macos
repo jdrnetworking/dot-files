@@ -449,8 +449,7 @@ for app in "Activity Monitor" \
 	"Google Chrome" \
 	"Messages" \
 	"Safari" \
-	"SystemUIServer" \
-	"Terminal"; do
+	"SystemUIServer"; do
 	killall "${app}" &> /dev/null
 done
 echo "Done. Restarting in 1 minute..."
