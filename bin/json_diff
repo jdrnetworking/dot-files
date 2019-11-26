@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  echo "Usage: json_diff file1.json file2.json"
+  exit 1
+fi
+
+diff -u <(python -mjson.tool < "$1") <(python -mjson.tool < "$2")

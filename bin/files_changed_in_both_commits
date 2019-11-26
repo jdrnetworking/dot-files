@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $(basename $0) commit_1 commit_2"
+  exit 1
+fi
+
+term_width=$(tput cols)
+half_width=$(echo "${term_width} 2 / p" | dc)
+
+files_in_common=$(comm -12 <(git show --pretty="format:" --name-only $1 | sort) <(git show --pretty="format:" --name-only $2 | sort))
+
+if [ -z "$files_in_common" ]; then
+  echo "No files in common"
+else
+  echo "$files_in_common" | while read filename; do
+    pr -mtw ${term_width} <(echo "${filename}"; echo; git log -n1 --oneline $1; echo; git show --pretty="format:" $1 "${filename}" | tail +5 | fold -w${half_width}) <(echo; echo; git log -n1 --oneline $2; echo; git show --pretty="format:" $2 "${filename}" | tail +5 | fold -w${half_width})
+    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+  done | less -F
+fi

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Usage: $(basename $0) branch"
+  exit 1
+fi
+
+echo "diff -u <(git diff \$(git merge-base ${1} master) ${1}) <(git diff master \$(git revlog -n1 ${1}..))"
+
+if type -t ack >/dev/null; then
+  diff -u <(git diff $(git merge-base ${1} master) ${1}) <(git diff master $(git revlog -n1 ${1}..)) | ack --flush --passthru --color --color-match=red '^[\+-]{2}(?!\+)(?!-).*' | tail +3
+else
+  diff -u <(git diff $(git merge-base ${1} master) ${1}) <(git diff master $(git revlog -n1 ${1}..))
+fi

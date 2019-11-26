@@ -1,0 +1,14 @@
+#!/bin/sh
+
+sudo useradd -m -s /bin/bash -G sudo $1
+sudo passwd -de $1
+mkdir -m 700 ${1}_ssh
+touch ${1}_ssh/authorized_keys
+chmod 600 ${1}_ssh/authorized_keys
+if [ -n "$2" ]; then
+  echo "$2" >> ${1}_ssh/authorized_keys
+else
+  vi -c 'startinsert' ${1}_ssh/authorized_keys
+fi
+sudo chown -R ${1}.${1} ${1}_ssh
+sudo mv ${1}_ssh /home/$1/.ssh

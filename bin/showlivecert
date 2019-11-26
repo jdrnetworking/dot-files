@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  echo "Usage: showlivecert host[:port] [openssl_x509_options]"
+  exit 0
+fi
+
+if [ "${1%:[0-9]*}" == "$1" ]; then
+  host="${1}:443"
+else
+  host="$1"
+fi
+shift
+hostwithoutport="${host%:[0-9]*}"
+
+if [ $# -eq 0 ]; then
+  x509_opts[0]="-text"
+else
+  x509_opts=("$@")
+fi
+
+echo | openssl s_client -showcerts -servername "${hostwithoutport}" -connect "${host}" 2>/dev/null | openssl x509 -inform pem -noout "${x509_opts[@]}"
