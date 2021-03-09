@@ -23,6 +23,7 @@ if defined? Hirb
 
   Hirb.enable
 end
+
 def qbm
   s = Time.now.to_f
   ret = yield
@@ -30,11 +31,46 @@ def qbm
   ret
 end
 
+def _table(collection, headers: nil, total: [])
+  column_sizes = (headers ? [headers] + collection : collection).reduce([]) do |lengths, row|
+    row.each_with_index.map{|iterand, index| [lengths[index] || 0, iterand.to_s.length].max}
+  end
+  raise ArgumentError, "Must specify headers with total" if total.size.nonzero? && !headers
+  totals = total.map { |col| headers.index(col) }.each_with_object({}) { |col_index, o| o[col_index] = 0 }
+  row_separator = '-' * (column_sizes.inject(&:+) + (3 * column_sizes.count) + 1) + "\n"
+  t = row_separator
+  if headers
+    t += '| ' + headers.each_with_index.map { |v, i| v = v.to_s + ' ' * (column_sizes[i] - v.to_s.length) }.join(' | ') + ' |' + "\n"
+    t += row_separator
+  end
+  t += collection.map { |row|
+    totals.each_key { |col_index| totals[col_index] += row[col_index] }
+    row = row.fill(nil, row.size..(column_sizes.size - 1))
+    row = row.each_with_index.map { |v, i| v = v.to_s + ' ' * (column_sizes[i] - v.to_s.length) }
+    '| ' + row.join(' | ') + ' |' + "\n"
+  }.join
+  t += row_separator
+  unless total.empty?
+    totals.transform_values! { |v| v.round(4) }
+    t += '| ' +
+      headers.each_index.map { |col_index|
+        if totals.key?(col_index)
+          totals[col_index].to_s + ' ' * [(column_sizes[col_index] - totals[col_index].to_s.length), 0].max
+        else
+          ' ' * column_sizes[col_index]
+        end
+      }.join(' | ') + ' |' + "\n"
+    t += row_separator
+  end
+  puts t
+end
+
 if defined?(PryByebug)
   Pry.commands.alias_command 'c', 'continue'
   Pry.commands.alias_command 's', 'step'
   Pry.commands.alias_command 'n', 'next'
   Pry.commands.alias_command 'f', 'finish'
+  Pry.commands.alias_command 'bda', 'break --delete-all'
 
   # Hit Enter to repeat last command
   Pry::Commands.command /^$/, "repeat last command" do
@@ -77,6 +113,13 @@ end
 class String
   def to_clipboard
     IO::popen(%w(pbcopy), 'w') { |io| io.write self } && self
+  end
+end
+
+class Integer
+  def factors
+    return nil unless self >= 1
+    (1..Math.sqrt(self).floor).flat_map { |i| (self % i).zero? ? [i, self/i] : [] }.uniq.sort
   end
 end
 
