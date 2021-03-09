@@ -1,0 +1,37 @@
+#!/bin/bash
+
+CHROME_BASE="${HOME}/.newchrome"
+
+if [ "$0" != "$BASH_SOURCE" ]; then
+  _newchrome() {
+    if [ ! -d $CHROME_BASE ]; then
+      return
+    fi
+    if [ "${#COMP_WORDS[@]}" != "2" ]; then
+      return
+    fi
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $(compgen -W "$(ls $CHROME_BASE)" -- $cur) )
+  }
+  complete -F _newchrome newchrome
+  return
+fi
+
+if [ $# -eq 0 ] || [[ "$1" =~ ^- ]]; then
+  SESSION_NAME=$(date +'%Y%m%d%H%M%S')
+else
+  SESSION_NAME="$1"
+  shift
+fi
+
+DATA_DIR="${CHROME_BASE}/${SESSION_NAME}"
+if ! [ -d "${DATA_DIR}" ]; then
+  read -n 1 -p "${SESSION_NAME} does not exist. Create? (Y/n) "
+  echo
+  if [ "${REPLY}" != "Y" -a "${REPLY}" != "y" -a "${REPLY}" != "" ]; then
+    exit
+  fi
+fi
+mkdir -p "${DATA_DIR}"
+echo "Starting a new instance of Chrome in ${DATA_DIR}"
+open -n -a "Google Chrome" --args "--user-data-dir=${DATA_DIR}" $@
