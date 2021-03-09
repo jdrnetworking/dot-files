@@ -14,37 +14,41 @@ else # full path
 fi
 session_name=${PROJECT//./_}
 
-if [ "$2" == "-mysql" ]; then
-  mysql.server status >/dev/null || mysql.server start || { echo "Cannot start mysql. Exiting"; exit 1; }
-elif [ "$2" == "-pg" ]; then
-  pg_ctl -D /usr/local/var/postgres status >/dev/null || pg_ctl -D /usr/local/var/postgres start || { echo "Cannot start postgresql. Exiting"; exit 1; }
-fi
-
-if tmux has -t $session_name 2>/dev/null; then
+if tmux has -t=$session_name 2>/dev/null; then
   exec tmux attach-session -t $session_name
 fi
 
 tmux new-session -d -c "$WORKING_DIR" -s $session_name -x $(tput cols) -y $(tput lines)
 
-tmux rename-window server
-tmux new-window -n vim -c "$WORKING_DIR"
-tmux new-window -n test -c "$WORKING_DIR"
-tmux new-window -n console -c "$WORKING_DIR"
-tmux new-window -n git -c "$WORKING_DIR"
-tmux new-window -n remote -c "$WORKING_DIR"
-
-sleep 1
-
-tmux select-window -t server
-tmux send-keys 'ras'
-tmux select-window -t console
-tmux send-keys 'rails c'
-tmux select-window -t git
-if type gitsh >/dev/null 2>&1; then
-  tmux send-keys 'gitsh' C-m
-  tmux send-keys 'lh' C-m C-m
+pushd "${WORKING_DIR}" >/dev/null
+if [ -f ".tmux-dev" ]; then
+  . ".tmux-dev"
 else
-  tmux send-keys 'git lh' C-m 'git st' C-m
+  if [ "$2" == "-mysql" ]; then
+    mysql.server status >/dev/null || mysql.server start || { echo "Cannot start mysql. Exiting"; exit 1; }
+  elif [ "$2" == "-pg" ]; then
+    pg_ctl -D /usr/local/var/postgres status >/dev/null || pg_ctl -D /usr/local/var/postgres start || { echo "Cannot start postgresql. Exiting"; exit 1; }
+  fi
+
+  tmux rename-window server
+  tmux new-window -n vim -c "$WORKING_DIR"
+  tmux new-window -n test -c "$WORKING_DIR"
+  tmux new-window -n console -c "$WORKING_DIR"
+  tmux new-window -n git -c "$WORKING_DIR"
+  tmux new-window -n remote -c "$WORKING_DIR"
+
+  sleep 1
+
+  tmux select-window -t git
+  if type gitsh >/dev/null 2>&1; then
+    tmux send-keys "RUBYOPT='-W0' gitsh" C-m
+    sleep 0.1
+    tmux send-keys 'lh' C-m C-m
+  else
+    tmux send-keys 'git lh' C-m 'git st' C-m
+  fi
 fi
+
+popd >/dev/null
 
 tmux attach-session -t $session_name
