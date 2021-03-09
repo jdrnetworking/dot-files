@@ -3,6 +3,7 @@ export EDITOR='vim'
 export CLICOLOR=true
 export SCREENDIR="/tmp/.screen-${USER}"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-12.jdk/Contents/Home"
+export DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 export HISTCONTROL=ignoreboth
 shopt -s histappend # append to the history file, don't overwrite it
