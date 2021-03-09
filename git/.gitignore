@@ -1,12 +1,15 @@
 *.swp
 .rvmrc
+.ackrc
 .ruby-gemset
 .ruby-version
 .rbenv-vars
 .rbenv-gemsets
+.gems
 .DS_Store*
 .autotest
 .tconsole
+.tmux-dev
 ehthumbs.db
 Thumbs.db
 .bundle
