@@ -297,3 +297,5 @@ vnoremap // y/<C-R>"<CR>
 if executable('rbenv')
   let g:ruby_default_path = ["/usr/local/var/rbenv/shims/ruby"]
 endif
+
+set path+=lib
