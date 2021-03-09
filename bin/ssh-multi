@@ -26,10 +26,10 @@ starttmux() {
 }
 
 OHD_STAGING=(ohd-staging-app-1 ohd-staging-web-1 ohd-staging-forms-2)
-OHD_PROD=(ohd-prod-web-2 ohd-prod-app-2 ohd-prod-app-3 ohd-prod-forms-1 ohd-prod-worker-1)
-OHD_DEMO=(ohd-demo-web-2 ohd-demo-app-1)
+OHD_PROD=(ohd-prod-web-2 ohd-prod-app-2 ohd-prod-app-3 ohd-prod-worker-1)
+OHD_DEMO=(ohd-demo-web-2 ohd-demo-app-1 ohd-demo-web-3 ohd-demo-app-2)
 OHD_MISC=(ohd-sftp ohd-log-1 ohd-sec-03)
-INTERNAL=(ohd-ci ohd-ids-01 ohd-phab ohd-unifi ohd-vpn-03 ohd-sec-02 ohd-db-06) # ohd-dev-app-1 ohd-sec-01
+INTERNAL=(ohd-ci ohd-ids-01 ohd-phab ohd-unifi ohd-vpn-03 ohd-sec-02 ohd-db-12) # ohd-dev-app-1 ohd-sec-01 ohd-db-06
 KP_STAGING=(kp-staging-app-2)
 KP_PROD=(kp-prod-app-2)
 OHD=("${OHD_STAGING[@]}" "${OHD_PROD[@]}" "${OHD_DEMO[@]}" "${OHD_MISC[@]}")
