@@ -61,6 +61,7 @@ brew "webp"
 brew "wget"
 brew "yarn"
 
+cask "balenaetcher"
 cask "chromedriver"
 cask "dash"
 cask "docker-edge"
