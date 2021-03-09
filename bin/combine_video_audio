@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+OFFSET=0
+while getopts "o:" opt; do
+  case "$opt" in
+    o)
+      OFFSET="${OPTARG}"
+      shift
+      shift
+  esac
+done
+
+if [ $# -lt 3 ]; then
+  echo "Usage: $(basename $0) [-o audio_offset] input_video.mp4 input_audio.mp3 output_video.mp4"
+  exit 1
+fi
+
+echo "ffmpeg -i \""$1\"" -itsoffset $OFFSET -i \""$2\"" -map 0:v:0 -map 1:a:0 \""$3\"""
+ffmpeg -i "$1" -itsoffset $OFFSET -i "$2" -map 0:v:0 -map 1:a:0 "$3"

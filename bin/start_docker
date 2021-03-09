@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if ! which docker >/dev/null; then
+  echo "Docker does not appear to be installed"
+  exit 1
+fi
+
+if ! docker system info >/dev/null 2>&1; then
+  echo -n "Starting Docker"
+  open -g -a Docker.app
+  while ! docker system info >/dev/null 2>&1; do
+    echo -n "."
+    sleep 1
+  done
+  echo
+fi

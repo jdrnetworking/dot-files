@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+if ! which docker >/dev/null; then
+  echo "Docker does not appear to be installed"
+  exit 1
+fi
+
+while ! docker system info >/dev/null 2>&1; do
+  sleep 1
+done
