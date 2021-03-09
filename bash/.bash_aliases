@@ -9,12 +9,13 @@ alias be="bundle exec"
 alias datestamp='date +"%Y%m%d%H%M%S"'
 alias sum_lines="awk '{s+=\$1} END {print s}'"
 alias edit_merge_conflicts='vi $(git st --porcelain | ack "^U" | field -1)'
+alias edit_new_files='vi $(git status --porcelain | awk '\''{print $2}'\'')'
 alias bqr='brakeman -q --no-pager; rubocop'
 alias vi=vim
 
 if [ "$(uname -s)" = "Darwin" ]; then
   alias md5sum='md5 -r'
-  alias reload_dns="sudo discoveryutil udnsflushcaches"
+  alias flush_dns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
   alias recover_x11='wmctrl -e 0,120,90,1680,900 -r'
   alias terminal_copy_plain="defaults write com.apple.Terminal CopyAttributesProfile com.apple.Terminal.no-attributes"
   alias terminal_copy_rich="defaults write com.apple.Terminal CopyAttributesProfile com.apple.Terminal.attributes"
